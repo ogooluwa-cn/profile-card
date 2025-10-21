@@ -4,290 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile Card</title>
-    <style>
-        :root {
-            --primary-color: #3a86ff;
-            --secondary-color: #8338ec;
-            --text-color: #333;
-            --light-bg: #f8f9fa;
-            --card-shadow: 0 10px 20px rgba(0,0,0,0.1);
-            --border-radius: 12px;
-            --transition: all 0.3s ease;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        body {
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            color: var(--text-color);
-        }
-
-        article[data-testid="test-profile-card"] {
-            background-color: white;
-            border-radius: var(--border-radius);
-            box-shadow: var(--card-shadow);
-            overflow: hidden;
-            width: 100%;
-            max-width: 900px;
-            transition: var(--transition);
-        }
-
-        article[data-testid="test-profile-card"]:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
-        }
-
-        .card-header {
-            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
-            color: white;
-            padding: 30px;
-            text-align: center;
-        }
-
-        h2[data-testid="test-user-name"] {
-            font-size: 2.2rem;
-            margin-bottom: 10px;
-            font-weight: 700;
-        }
-
-        .card-content {
-            display: flex;
-            flex-direction: column;
-            padding: 30px;
-        }
-
-        @media (min-width: 768px) {
-            .card-content {
-                flex-direction: row;
-            }
-        }
-
-        .profile-image-container {
-            flex: 0 0 200px;
-            margin-bottom: 25px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        @media (min-width: 768px) {
-            .profile-image-container {
-                margin-bottom: 0;
-                margin-right: 30px;
-            }
-        }
-
-        figure {
-            margin: 0;
-            text-align: center;
-        }
-
-        img[data-testid="test-user-avatar"] {
-            width: 180px;
-            height: 180px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 5px solid var(--light-bg);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            transition: var(--transition);
-        }
-
-        img[data-testid="test-user-avatar"]:hover {
-            transform: scale(1.05);
-        }
-
-        figcaption {
-            margin-top: 10px;
-            font-style: italic;
-            color: #666;
-        }
-
-        .profile-details {
-            flex: 1;
-        }
-
-        p[data-testid="test-user-bio"] {
-            line-height: 1.6;
-            margin-bottom: 20px;
-            font-size: 1.1rem;
-        }
-
-        .time-container {
-            background-color: var(--light-bg);
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 25px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .time-label {
-            font-weight: 600;
-        }
-
-        span[data-testid="test-user-time"] {
-            font-family: monospace;
-            background-color: white;
-            padding: 5px 10px;
-            border-radius: 4px;
-            border: 1px solid #ddd;
-        }
-
-        .social-section, .hobbies-section, .dislikes-section {
-            margin-bottom: 25px;
-        }
-
-        h3 {
-            color: var(--primary-color);
-            margin-bottom: 15px;
-            font-size: 1.3rem;
-            border-bottom: 2px solid var(--light-bg);
-            padding-bottom: 8px;
-        }
-
-        nav[data-testid="test-user-social-links"] ul {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            list-style: none;
-        }
-
-        nav[data-testid="test-user-social-links"] a {
-            display: flex;
-            align-items: center;
-            padding: 8px 15px;
-            background-color: var(--light-bg);
-            border-radius: 30px;
-            text-decoration: none;
-            color: var(--text-color);
-            font-weight: 500;
-            transition: var(--transition);
-        }
-
-        nav[data-testid="test-user-social-links"] a:hover,
-        nav[data-testid="test-user-social-links"] a:focus {
-            background-color: var(--primary-color);
-            color: white;
-            transform: translateY(-2px);
-        }
-
-        nav[data-testid="test-user-social-links"] a:focus {
-            outline: 2px solid var(--secondary-color);
-            outline-offset: 2px;
-        }
-
-        .social-icon {
-            margin-right: 8px;
-            font-size: 1.2rem;
-        }
-
-        ul[data-testid="test-user-hobbies"],
-        ul[data-testid="test-user-dislikes"] {
-            list-style: none;
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            gap: 10px;
-        }
-
-        ul[data-testid="test-user-hobbies"] li,
-        ul[data-testid="test-user-dislikes"] li {
-            background-color: var(--light-bg);
-            padding: 10px 15px;
-            border-radius: 30px;
-            text-align: center;
-            transition: var(--transition);
-        }
-
-        ul[data-testid="test-user-hobbies"] li:hover {
-            background-color: #e1f5e1;
-            transform: translateY(-2px);
-        }
-
-        ul[data-testid="test-user-dislikes"] li:hover {
-            background-color: #ffeaea;
-            transform: translateY(-2px);
-        }
-
-        .hobbies-section h3::before {
-            content: "❤️ ";
-        }
-
-        .dislikes-section h3::before {
-            content: "👎 ";
-        }
-
-        footer {
-            background-color: var(--light-bg);
-            padding: 15px;
-            text-align: center;
-            font-size: 0.9rem;
-            color: #666;
-        }
-
-        /* Image upload styles */
-        .image-upload-container {
-            margin-top: 15px;
-            text-align: center;
-        }
-
-        .upload-btn {
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: var(--transition);
-            font-size: 0.9rem;
-        }
-
-        .upload-btn:hover {
-            background-color: var(--secondary-color);
-        }
-
-        #image-upload {
-            display: none;
-        }
-
-        .upload-controls {
-            display: flex;
-            gap: 10px;
-            justify-content: center;
-            margin-top: 10px;
-        }
-
-        .remove-btn {
-            background-color: #ff6b6b;
-            color: white;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: var(--transition);
-            font-size: 0.9rem;
-        }
-
-        .remove-btn:hover {
-            background-color: #ee5a5a;
-        }
-
-        .upload-note {
-            font-size: 0.8rem;
-            color: #666;
-            margin-top: 8px;
-        }
-    </style>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
     <article data-testid="test-profile-card">
@@ -369,7 +86,27 @@ I’m constantly exploring emerging frontend technologies, optimizing developer 
                                     rel="noopener noreferrer"
                                     data-testid="test-user-social-codepen"
                                 >
-                                    <span class="social-icon">✏️</span> CodePen
+                                    <span class="social-icon">✉️</span> CodePen
+                                </a>
+                            </li>
+                             <li>
+                                <a 
+                                    href="/contact.html" 
+                                    target="_blank" 
+                                    rel="noopener noreferrer"
+                                    data-testid="test-user-contact-page"
+                                >
+                                    <span class="social-icon">✏️</span> Contact Me
+                                </a>
+                            </li>
+                            <li>
+                                <a 
+                                    href="/about.html" 
+                                    target="_blank" 
+                                    rel="noopener noreferrer"
+                                    data-testid="test-user-about-page"
+                                >
+                                    <span class="social-icon">🙋‍♂️</span> About Me
                                 </a>
                             </li>
                         </ul>
